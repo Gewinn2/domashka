@@ -14,5 +14,5 @@ func main() {
 	r := gin.Default()
 	handler.InitRoutes(r)
 
-	r.Run(":8080")
+	r.Run(":8085")
 }

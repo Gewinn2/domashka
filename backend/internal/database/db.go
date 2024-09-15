@@ -30,8 +30,9 @@ func InitDataBase() *sql.DB {
     CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
         username VARCHAR NOT NULL,
-        first_name VARCHAR,
-        second_name VARCHAR,
+        password VARCHAR NOT NULL,
+        first_name VARCHAR NOT NULL,
+        second_name VARCHAR NOT NULL,
         authorized_at TIMESTAMP
     );
     `
@@ -45,7 +46,7 @@ func InitDataBase() *sql.DB {
 	createRolesTable := `
     CREATE TABLE IF NOT EXISTS roles (
         id SERIAL PRIMARY KEY,
-        role_name VARCHAR NOT NULL -- admin/user
+        role_name VARCHAR NOT NULL
     );
     `
 	_, err = db.Exec(createRolesTable)
