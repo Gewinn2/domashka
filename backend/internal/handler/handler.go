@@ -18,9 +18,10 @@ func InitRoutes(r *gin.Engine, db *sql.DB) {
 	authGroup := s.r.Group("/")
 	authGroup.Use(pkg.GetJWTClaims)
 	{
-		s.r.POST("/user")
+		s.r.POST("/user", s.AddUser)
 
-		authGroup.POST("/group")
-		authGroup.DELETE("/group")
+		authGroup.GET("/group", s.GetGroup)
+		authGroup.POST("/group", s.CreateGroup)
+		authGroup.POST("/group_join", s.JoinToGroup)
 	}
 }
