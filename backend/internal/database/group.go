@@ -22,14 +22,17 @@ type GroupUsers struct {
 	RoleId  int `json:"role_id"`
 }
 
+// Вывод группы по id(приглашение и участники)
 func GetGroup(id int, db *sql.DB) {
 
 }
 
+// Создание группы
 func CreateGroup() {
 	// TODO: сделать
 }
 
+// Присоединение к группе по введенному приглашению
 func JoinToGroup() {
 	// TODO: сделать
 }

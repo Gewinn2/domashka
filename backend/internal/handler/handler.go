@@ -23,5 +23,15 @@ func InitRoutes(r *gin.Engine, db *sql.DB) {
 		authGroup.GET("/group", s.GetGroup)
 		authGroup.POST("/group", s.CreateGroup)
 		authGroup.POST("/group_join", s.JoinToGroup)
+
+		authGroup.GET("/article", s.GetAllArticles)
+		authGroup.POST("/article", s.CreateArticle)
+		authGroup.PUT("/article", s.UpdateArticle)
+		authGroup.DELETE("/article", s.DeleteArticle)
+
+		authGroup.GET("/hometask", s.GetAllHometasks)
+		authGroup.POST("/hometask", s.CreateHometask)
+		authGroup.PUT("/hometask", s.UpdateHometask)
+		authGroup.DELETE("/hometask", s.DeleteHometask)
 	}
 }

@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+// При входе в приложение проверяет есть ли уже такой зарегистрированный
+// пользователь, если нет, добавляет его в бд
 func (s *Server) AddUser(c *gin.Context) {
 	idToConv, ok := c.Get("id")
 	if !ok {

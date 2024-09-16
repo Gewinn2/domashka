@@ -15,3 +15,23 @@ type Hometask struct {
 	Deadline    string `json:"deadline"`
 	CreatedAt   string `json:"created_at"`
 }
+
+// Возвращает все дз в топике по id топика
+func GetAllHometasks() {
+
+}
+
+// Создает новое дз
+func CreateHometask() {
+
+}
+
+// Обновляет дз по id
+func UpdateHometask() {
+
+}
+
+// Удаляет дз по id
+func DeleteHometask() {
+
+}
