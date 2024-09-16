@@ -1,0 +1,349 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Domashka API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8085",
+      "description": "Локальный сервер"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Создать пользователя",
+        "responses": {
+          "200": {
+            "description": "Успешное создание пользователя"
+          }
+        }
+      }
+    },
+    "/group": {
+      "get": {
+        "summary": "Получить информацию о группе",
+        "tags": [
+          "Group"
+        ],
+        "responses": {
+          "200": {
+            "description": "Информация о группе"
+          }
+        }
+      },
+      "post": {
+        "summary": "Создать новую группу",
+        "tags": [
+          "Group"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Group"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное создание группы"
+          }
+        }
+      }
+    },
+    "/group_join": {
+      "post": {
+        "summary": "Присоединиться к группе",
+        "tags": [
+          "Group"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "invite_link": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное присоединение к группе"
+          }
+        }
+      }
+    },
+    "/article": {
+      "get": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Получить все топики в группе",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список топиков",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Article"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Создать топик",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Article"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное создание топика"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Обновить топик",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Article"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное обновление топика"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Article"
+        ],
+        "summary": "Удалить топик",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешное удаление топика"
+          }
+        }
+      }
+    },
+    "/hometask": {
+      "get": {
+        "tags": [
+          "Hometask"
+        ],
+        "summary": "Получить все домашние задания для топика",
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Список домашних заданий",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Hometask"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Hometask"
+        ],
+        "summary": "Создать домашнее задание",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Hometask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное создание домашнего задания"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Hometask"
+        ],
+        "summary": "Обновить домашнее задание",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Hometask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное обновление домашнего задания"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Hometask"
+        ],
+        "summary": "Удалить домашнее задание",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешное удаление домашнего задания"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Article": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "group_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "group_name": {
+            "type": "string"
+          },
+          "invite_link": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Hometask": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "article_id": {
+            "type": "integer"
+          },
+          "file_path": {
+            "type": "string"
+          },
+          "file_type_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
