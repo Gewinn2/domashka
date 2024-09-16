@@ -12,7 +12,7 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
-	handler.InitRoutes(r)
+	handler.InitRoutes(r, db)
 
 	r.Run(":8085")
 }

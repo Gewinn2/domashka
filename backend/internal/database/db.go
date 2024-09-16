@@ -29,10 +29,10 @@ func InitDataBase() *sql.DB {
 	createUsersTable := `
     CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        username VARCHAR NOT NULL,
-        password VARCHAR NOT NULL,
-        first_name VARCHAR NOT NULL,
-        second_name VARCHAR NOT NULL,
+        username VARCHAR,
+        first_name VARCHAR,
+        second_name VARCHAR,
+        photo_url TEXT,
         authorized_at TIMESTAMP
     );
     `
