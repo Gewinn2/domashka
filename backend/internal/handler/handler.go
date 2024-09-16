@@ -14,11 +14,12 @@ type Server struct {
 func InitRoutes(r *gin.Engine, db *sql.DB) {
 	s := &Server{r: r, db: db}
 	s.r.Use(pkg.CORSMiddleware())
-	s.r.POST("/user")
 
 	authGroup := s.r.Group("/")
-	authGroup.Use()
+	authGroup.Use(pkg.GetJWTClaims)
 	{
+		s.r.POST("/user")
+
 		authGroup.POST("/group")
 		authGroup.DELETE("/group")
 	}
