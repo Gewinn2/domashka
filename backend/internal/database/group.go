@@ -4,6 +4,11 @@ import (
 	"database/sql"
 )
 
+type Role struct {
+	Id       int    `json:"id"`
+	RoleName string `json:"role_name"`
+}
+
 type Group struct {
 	Id         int    `json:"id"`
 	GroupName  string `json:"group_name"`
