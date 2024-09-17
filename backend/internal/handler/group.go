@@ -33,7 +33,7 @@ func (s *Server) GetGroup(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"users": users, "invite_link": inviteLink})
+	c.JSON(http.StatusOK, gin.H{"invite_link": inviteLink, "users": users})
 }
 
 // Создание группы
