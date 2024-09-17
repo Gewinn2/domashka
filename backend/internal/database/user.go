@@ -19,7 +19,7 @@ func CreateUser(u User, db *sql.DB) (int, error) {
 
 	_, err := db.Exec(query, u.Id, u.Username, u.FirstName, u.LastName, u.PhotoUrl, u.AuthorizedAt)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("CreateUser: %w", err)
 	}
 
 	return u.Id, nil
@@ -37,9 +37,9 @@ func GetUser(id int, db *sql.DB) (User, error) {
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// Возвращаем пустого пользователя, если записи нет
-			return User{}, fmt.Errorf("user with id %d not found", id)
+			return User{}, fmt.Errorf("GetUser: %w", err)
 		}
-		return User{}, err
+		return User{}, fmt.Errorf("GetUser: %w", err)
 	}
 
 	return user, nil

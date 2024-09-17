@@ -51,6 +51,9 @@ func (s *Server) AddUser(c *gin.Context) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-		c.JSON(http.StatusCreated, id)
+		c.JSON(http.StatusCreated, gin.H{"id": id})
+		return
 	}
+
+	c.JSON(http.StatusOK, gin.H{"id": id})
 }
