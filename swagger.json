@@ -13,31 +13,119 @@
   "paths": {
     "/user": {
       "post": {
+        "security": [
+          {
+            "UserAuth": []
+          }
+        ],
         "tags": [
           "User"
         ],
         "summary": "Создать пользователя",
+        "description": "Вызывать ПРИ КАЖДОМ ЗАПУСКЕ ПРИЛОЖЕНИЯ. Проверяет, есть ли уже пользователь в бд, если нет, то добавляет его по данным взятым из JWT.",
         "responses": {
           "200": {
-            "description": "Успешное создание пользователя"
+            "description": "Пользователь уже есть в бд",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Успешное создание пользователя",
+            "content": {
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/group": {
       "get": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "summary": "Получить информацию о группе",
+        "description":"Выводит всех пользователей и ссылку на инвайт в группу, в которой находится пользователь.",
         "tags": [
           "Group"
         ],
         "responses": {
           "200": {
-            "description": "Информация о группе"
+            "description": "Информация о группе",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "invite_link": {
+                      "type": "string",
+                      "example": "some-unique-invite-link"
+                    },
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          },
+                          "username": {
+                            "type": "string",
+                            "example": "Gewinn"
+                          },
+                          "first_name": {
+                            "type": "string",
+                            "example": "Danek"
+                          },
+                          "last_name": {
+                            "type": "string",
+                            "example": "Postnikov"
+                          },
+                          "photo_url": {
+                            "type": "string",
+                            "example": "https://avatars.mds.yandex.net/i?id=20e4b220c58cd38ea61095659b94751e37ae4ed3-11551355-images-thumbs&n=13"
+                          },
+                          "authorized_at": {
+                            "type": "string",
+                            "format": "date"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
       "post": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "summary": "Создать новую группу",
+        "description": "Создание группы с переданным названием",
         "tags": [
           "Group"
         ],
@@ -46,21 +134,43 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Group"
+                "type": "object",
+                "properties": {
+                  "group_name": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Успешное создание группы"
+            "description": "Успешное создание группы",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/group_join": {
       "post": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "summary": "Присоединиться к группе",
+        "description": "Присоединение к группе по ссылке приглашения",
         "tags": [
           "Group"
         ],
@@ -81,17 +191,35 @@
         },
         "responses": {
           "200": {
-            "description": "Успешное присоединение к группе"
+            "description": "Успешное присоединение к группе",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/article": {
       "get": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Article"
         ],
         "summary": "Получить все топики в группе",
+        "description": "Выводит все топики в группе",
         "parameters": [
           {
             "name": "group_id",
@@ -119,31 +247,61 @@
         }
       },
       "post": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Article"
         ],
         "summary": "Создать топик",
+        "description": "Создание топика с переданным названием",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Article"
+                "type": "object",
+                "properties": {
+                  "group_id": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Успешное создание топика"
+            "description": "Успешное создание топика",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
       "put": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Article"
         ],
         "summary": "Обновить топик",
+        "description": "Обнволение топика с новым названием и id",
         "requestBody": {
           "required": true,
           "content": {
@@ -156,15 +314,27 @@
         },
         "responses": {
           "200": {
-            "description": "Успешное обновление топика"
+            "description": "Успешное обновление топика",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Article"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Article"
         ],
         "summary": "Удалить топик",
+        "description": "Удаление топика по переданному id",
         "parameters": [
           {
             "name": "id",
@@ -177,17 +347,35 @@
         ],
         "responses": {
           "200": {
-            "description": "Успешное удаление топика"
+            "description": "Успешное удаление топика",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/hometask": {
       "get": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Hometask"
         ],
         "summary": "Получить все домашние задания для топика",
+        "description": "Получение всех дз в указанном топике",
         "parameters": [
           {
             "name": "article_id",
@@ -215,6 +403,10 @@
         }
       },
       "post": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Hometask"
         ],
@@ -224,18 +416,55 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Hometask"
+                "type": "object",
+                "properties": {
+                  "article_id": {
+                    "type": "integer"
+                  },
+                  "file_path": {
+                    "type": "string"
+                  },
+                  "file_type_id": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "deadline": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Успешное создание домашнего задания"
+            "description": "Успешное создание домашнего задания",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
       "put": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Hometask"
         ],
@@ -252,11 +481,22 @@
         },
         "responses": {
           "200": {
-            "description": "Успешное обновление домашнего задания"
+            "description": "Успешное обновление домашнего задания",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hometask"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
+        "security": [
+          {                           "UserAuth": []
+          }
+        ],
         "tags": [
           "Hometask"
         ],
@@ -273,13 +513,33 @@
         ],
         "responses": {
           "200": {
-            "description": "Успешное удаление домашнего задания"
+            "description": "Успешное удаление домашнего задания",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "success"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "UserAuth": {
+        "type": "apiKey",
+          "name": "Authorization",
+          "in": "header"
+      }
+    },
     "schemas": {
       "Article": {
         "type": "object",
