@@ -57,7 +57,7 @@ func (s *Server) CreateGroup(c *gin.Context) {
 	group.CreatedAt = time.Now().Format("2006-02-01 15:04:05")
 	groupId, err := database.CreateGroup(id, group, s.db)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		fmt.Println("CreateGroup:", err)
 		return
 	}
@@ -84,7 +84,7 @@ func (s *Server) JoinToGroup(c *gin.Context) {
 
 	err := database.JoinToGroup(id, 0, group.InviteLink, s.db)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		fmt.Println("JoinToGroup:", ok)
 		return
 	}
