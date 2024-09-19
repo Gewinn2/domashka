@@ -21,7 +21,7 @@ func (s *Server) GetAllArticles(c *gin.Context) {
 	articles, err := database.GetAllArticles(id, s.db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		fmt.Println("GetAllArticles:", ok)
+		fmt.Println("GetAllArticles:", err.Error())
 		return
 	}
 
