@@ -19,6 +19,12 @@ func (s *Server) GetGroup(c *gin.Context) {
 	}
 	id := idToConv.(int)
 
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
+		fmt.Println("GetGroup:", "Invalid user_id")
+		return
+	}
+
 	users, err := database.GetGroupUsers(id, s.db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -46,10 +52,22 @@ func (s *Server) CreateGroup(c *gin.Context) {
 	}
 	id := idToConv.(int)
 
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
+		fmt.Println("CreateGroup:", "Invalid user_id")
+		return
+	}
+
 	var group database.Group
 	if err := c.ShouldBindJSON(&group); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println("CreateGroup:", err)
+		return
+	}
+
+	if group.GroupName == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty group name"})
+		fmt.Println("CreateGroup:", "Empty group name")
 		return
 	}
 
@@ -75,10 +93,22 @@ func (s *Server) JoinToGroup(c *gin.Context) {
 	}
 	id := idToConv.(int)
 
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
+		fmt.Println("JoinToGroup:", "Invalid user_id")
+		return
+	}
+
 	var group database.Group
 	if err := c.ShouldBindJSON(&group); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println("JoinToGroup:", err)
+		return
+	}
+
+	if group.InviteLink == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty invite link"})
+		fmt.Println("JoinToGroup:", "Empty invite link")
 		return
 	}
 
