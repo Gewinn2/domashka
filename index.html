@@ -29,6 +29,22 @@
             margin: 40px auto; /* Центрирование по горизонтали с верхним и нижним отступом */
         }
 
+        .servers, .swagger-ui .authorize {
+            background-color: rgba(255, 255, 255, 0.5); /* Полупрозрачный белый фон */
+            border-radius: 10px; /* Закругленные углы */
+            padding: 10px;
+        }
+
+        /* Убираем тени */
+        .swagger-ui .authorize button {
+            box-shadow: none;
+        }
+
+        /* Для полей ввода */
+        .swagger-ui .servers {
+            opacity: 0.8; /* Прозрачность для полей ввода */
+        }
+
         .topbar {
             display: none;
             float: right;
