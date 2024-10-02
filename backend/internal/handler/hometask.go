@@ -18,6 +18,12 @@ func (s *Server) GetAllHometasks(c *gin.Context) {
 		return
 	}
 
+	if hometaskId <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid hometask_id"})
+		fmt.Println("GetAllHometasks:", "Invalid hometask_id")
+		return
+	}
+
 	hometasks, err := database.GetAllHometasks(hometaskId, s.db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -34,6 +40,18 @@ func (s *Server) CreateHometask(c *gin.Context) {
 	if err := c.ShouldBindJSON(&hometask); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println("CreateHometask:", err)
+		return
+	}
+
+	if hometask.ArticleId <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid article_id"})
+		fmt.Println("CreateHometask:", "Invalid article_id")
+		return
+	}
+
+	if hometask.Title == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty hometask title"})
+		fmt.Println("CreateHometask:", "Empty hometask title")
 		return
 	}
 
@@ -56,6 +74,24 @@ func (s *Server) UpdateHometask(c *gin.Context) {
 		return
 	}
 
+	if hometask.Id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid hometask_id"})
+		fmt.Println("UpdateHometask:", "Invalid hometask_id")
+		return
+	}
+
+	if hometask.ArticleId <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid article_id"})
+		fmt.Println("UpdateHometask:", "Invalid article_id")
+		return
+	}
+
+	if hometask.Title == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty hometask title"})
+		fmt.Println("UpdateHometask:", "Empty hometask title")
+		return
+	}
+
 	_, err := database.UpdateHometask(hometask, s.db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -73,6 +109,12 @@ func (s *Server) DeleteHometask(c *gin.Context) {
 	if err != nil {
 		fmt.Println("GetAllHometasks:", err)
 		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+
+	if hometaskId <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid hometask_id"})
+		fmt.Println("DeleteHometask:", "Invalid hometask_id")
 		return
 	}
 
