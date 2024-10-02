@@ -18,6 +18,12 @@ func (s *Server) GetAllArticles(c *gin.Context) {
 	}
 	id := idToConv.(int)
 
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
+		fmt.Println("GetAllArticles:", "Invalid user_id")
+		return
+	}
+
 	articles, err := database.GetAllArticles(id, s.db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -38,10 +44,22 @@ func (s *Server) CreateArticle(c *gin.Context) {
 	}
 	id := idToConv.(int)
 
+	if id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user_id"})
+		fmt.Println("CreateArticle:", "Invalid user_id")
+		return
+	}
+
 	var article database.Article
 	if err := c.ShouldBindJSON(&article); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println("CreateArticle:", err)
+		return
+	}
+
+	if article.Title == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty title"})
+		fmt.Println("CreateArticle:", "Empty title")
 		return
 	}
 
@@ -64,6 +82,18 @@ func (s *Server) UpdateArticle(c *gin.Context) {
 		return
 	}
 
+	if article.Id <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid article_id"})
+		fmt.Println("UpdateArticle:", "Invalid article_id")
+		return
+	}
+
+	if article.Title == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Empty title"})
+		fmt.Println("UpdateArticle:", "Empty title")
+		return
+	}
+
 	_, err := database.UpdateArticle(article, s.db)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -81,6 +111,12 @@ func (s *Server) DeleteArticle(c *gin.Context) {
 	if err != nil {
 		fmt.Println("DeleteArticle:", err)
 		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+
+	if articleId <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid article_id"})
+		fmt.Println("DeleteArticle:", "Invalid article_id")
 		return
 	}
 
