@@ -1,0 +1,19 @@
+.archive {
+  margin-bottom: 30%;
+}
+
+.archive .homework {
+  box-shadow: 2px 2px 2px rgb(195, 195, 195);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Переходы для фона и тени */
+}
+
+/* Эффект нажатия кнопки */
+.archive .homework:active {
+  transform: translateY(3px);
+  box-shadow: none; /* Двигаем кнопку вниз для имитации нажатия */
+}
+
+.archive a {
+  text-decoration: none;
+  color: black;
+}

@@ -1,0 +1,31 @@
+.comment {
+  margin: 15px 0px 0px 10px;
+}
+
+.comment .userPhoto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+}
+
+.comment .value {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  margin: 15px;
+}
+
+.comment p {
+  margin: 0px;
+}
+
+.comment .userName {
+  color: rgb(122, 122, 122);
+  font-size: 12px;
+  margin: 0px;
+  margin-bottom: 5px;
+}

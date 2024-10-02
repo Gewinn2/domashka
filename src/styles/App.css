@@ -1,0 +1,21 @@
+body {
+  padding-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+  width: 90%;
+  max-width: 500px;
+  margin-bottom: 90px;
+}
+
+a {
+  -webkit-tap-highlight-color: rgba(
+    0,
+    0,
+    0,
+    0
+  ); /* Убираем подсветку при касании */
+}
+
+._3lwW_ * {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

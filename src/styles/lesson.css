@@ -1,0 +1,92 @@
+.lessonsHeader {
+  margin: 0px 0px 40px 0px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 23px;
+}
+
+.homeworkLink {
+  text-decoration: none;
+  color: black;
+}
+
+.lesson {
+  background-color: rgb(170, 170, 170);
+  border-radius: 20px;
+  box-shadow: 2px 4px 2px rgb(195, 195, 195);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Переходы для фона и тени */
+}
+
+.filledTitle {
+  background-color: rgb(183, 227, 255);
+}
+
+/* Эффект нажатия кнопки */
+.lesson:active {
+  transform: translateY(3px);
+  box-shadow: none; /* Двигаем кнопку вниз для имитации нажатия */
+}
+
+.lesson .lessonHomework {
+  background-color: rgb(221, 221, 221);
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.filledHomework {
+  background-color: rgb(224, 243, 255) !important;
+}
+
+.lesson .lessonName {
+  font-size: 20px;
+  padding: 10px;
+  padding-left: 15px;
+  margin: 0px;
+}
+
+.lesson .lessonHomework {
+  padding: 15px;
+  margin: auto 0px 50px 0px;
+  font-size: 16px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.lesson .deadline {
+  font-size: 14px;
+}
+
+.lesson .lessonText {
+  flex-shrink: 0;
+  width: 60%;
+}
+
+.lesson .lessonHomework p {
+  margin-top: 0px;
+}
+
+.lesson .userPhotos {
+  position: absolute;
+  bottom: 5%;
+  right: 0%;
+}
+
+.lesson .user_photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0px;
+  position: relative;
+}
+
+.lesson #frontPhoto {
+  left: -24%;
+  z-index: 3;
+}
+
+.lesson #middlePhoto {
+  left: -12%;
+  z-index: 2;
+}

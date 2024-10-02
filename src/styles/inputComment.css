@@ -1,0 +1,48 @@
+/* InputField.css */
+
+.input-field {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  background-color: rgb(243, 243, 243);
+  border-radius: 15px;
+  padding: 7px;
+}
+
+.input-field textarea {
+  background-color: rgb(243, 243, 243);
+  resize: none;
+  font-family: inherit;
+  font-size: 17px;
+  outline: none;
+  border: none;
+  width: 90%;
+  height: 25px;
+  z-index: 2;
+}
+
+.input-field .arrow-wrap {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(41, 126, 255);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.input-field .arrow-wrap-display {
+  position: relative;
+  display: none;
+}
+
+.input-field .focused {
+  display: block;
+}
+
+.input-field svg {
+  color: white;
+  font-size: 17px;
+}
